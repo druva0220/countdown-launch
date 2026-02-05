@@ -4,7 +4,7 @@ import base64
 st.set_page_config(layout="wide")
 
 # ---------------- CONFIG ----------------
-VIDEO_PATH = "/home/dhruvin/countdown-project/assets/background.mp4"
+VIDEO_PATH = "background.mp4"
 LAUNCH_DATE = "2026-06-13T00:00:00"
 
 # ---------------- LOAD VIDEO ----------------
