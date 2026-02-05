@@ -4,7 +4,7 @@ import base64
 st.set_page_config(layout="wide")
 
 # ---------------- CONFIG ----------------
-VIDEO_PATH = "background.mp4"
+VIDEO_PATH = "/home/dhruvin/countdown-project/assets/background.mp4"
 LAUNCH_DATE = "2026-06-13T00:00:00"
 
 # ---------------- LOAD VIDEO ----------------
@@ -19,7 +19,7 @@ html_code = """
 <html>
 <head>
 <meta charset="UTF-8">
-
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 html, body {
     margin: 0;
@@ -27,7 +27,7 @@ html, body {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    font-family: Arial, sans-serif;
+    font-family: Orbitron, sans-serif;
 }
 
 /* VIDEO FULLSCREEN (NO CROPPING) */
@@ -47,13 +47,15 @@ video {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: rgba(0,0,0,0.7);
+    background: rgba(0,0,0,0.2);
     padding: 70px 90px;
     border-radius: 25px;
     border: 2px solid cyan;
     box-shadow: 0 0 45px cyan;
     color: white;
     text-align: center;
+    max-width: 90vw;
+    max-height: 85vh;
 }
 
 /* HEADINGS */
@@ -61,6 +63,7 @@ video {
     font-size: 46px;
     color: cyan;
     letter-spacing: 3px;
+    font-weight: 800;
 }
 
 .product {
@@ -69,11 +72,10 @@ video {
 }
 
 .date {
-    color: #ffffff;
-    margin-bottom: 40px;
     font-size: 24px;
     font-weight: 700;
-    letter-spacing: 1px;
+    margin-bottom: 40px;
+    color: white;
     text-shadow: 0 0 8px rgba(0,255,255,0.6);
 }
 
@@ -106,6 +108,27 @@ video {
     color: cyan;
     letter-spacing: 1.5px;
 }
+
+/* FULLSCREEN BUTTON */
+#fullscreen-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    padding: 12px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    color: black;
+    background: cyan;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    z-index: 10;
+    box-shadow: 0 0 15px rgba(0,255,255,0.8);
+}
+
+#fullscreen-btn:hover {
+    background: #00e5e5;
+}
 </style>
 </head>
 
@@ -127,12 +150,15 @@ video {
         <div class="box"><div class="value" id="minutes">00</div><div class="label">MINUTES</div></div>
         <div class="box"><div class="value" id="seconds">00</div><div class="label">SECONDS</div></div>
     </div>
-
 </div>
 
+<button id="fullscreen-btn">⛶ </button>
+
 <script>
-/* FULLSCREEN ON FIRST CLICK */
-function goFullScreen() {
+/* ---------- FULLSCREEN LOGIC ---------- */
+const fsButton = document.getElementById("fullscreen-btn");
+
+function enterFullscreen() {
     const el = document.documentElement;
     if (el.requestFullscreen) {
         el.requestFullscreen();
@@ -140,9 +166,25 @@ function goFullScreen() {
         el.webkitRequestFullscreen();
     }
 }
-document.addEventListener("click", goFullScreen, { once: true });
 
-/* COUNTDOWN */
+function isFullscreen() {
+    return document.fullscreenElement || document.webkitFullscreenElement;
+}
+
+fsButton.addEventListener("click", enterFullscreen);
+
+function onFullscreenChange() {
+    if (isFullscreen()) {
+        fsButton.style.display = "none";
+    } else {
+        fsButton.style.display = "block";
+    }
+}
+
+document.addEventListener("fullscreenchange", onFullscreenChange);
+document.addEventListener("webkitfullscreenchange", onFullscreenChange);
+
+/* ---------- COUNTDOWN ---------- */
 const launchDate = new Date("__LAUNCH_DATE__");
 
 function updateCountdown() {
