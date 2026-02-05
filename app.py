@@ -128,9 +128,6 @@ video {
         <div class="box"><div class="value" id="seconds">00</div><div class="label">SECONDS</div></div>
     </div>
 
-    <p style="margin-top:30px; opacity:0.6; font-size:14px;">
-        Click anywhere to enter full screen
-    </p>
 </div>
 
 <script>
