@@ -39,21 +39,33 @@ video {
     z-index: -1;
 }
 
-/* MAIN OVERLAY */
+/* MAIN OVERLAY (TV-safe responsive sizing) */
 .overlay {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+
+    /* prevents full-screen overlay on big TVs */
+    width: clamp(720px, 70vw, 1100px);
+
+    /* responsive padding */
+    padding: clamp(28px, 3.5vw, 64px) clamp(30px, 4vw, 90px);
+
     background: rgba(0,0,0,0.18);
-    padding: 64px 90px 72px 90px;
     border-radius: 28px;
     border: 2px solid rgba(0,255,255,0.9);
     box-shadow: 0 0 55px rgba(0,255,255,0.55);
     color: white;
     text-align: center;
-    width: min(1100px, 92vw);
     backdrop-filter: blur(2px);
+
+    max-height: 82vh;
+    box-sizing: border-box;
+}
+
+@media (min-width: 1700px) {
+  .overlay { width: clamp(760px, 58vw, 1100px); }
 }
 
 .title {
@@ -164,9 +176,7 @@ video {
 
 .box { display: flex; justify-content: center; }
 
-/* ================================
-   EDGE DISPLAY BORDER (MULTICOLOR KINETIC)
-   ================================ */
+/* EDGE DISPLAY BORDER (MULTICOLOR KINETIC) */
 .value{
     width: 130px;
     height: 88px;
@@ -175,21 +185,17 @@ video {
     display: grid;
     place-items: center;
     overflow: hidden;
-
-    /* IMPORTANT: no normal border now */
     border: none;
-
-    /* keep original glow */
     box-shadow:
         inset 0 0 18px rgba(0,255,255,0.20),
         0 0 22px rgba(0,255,255,0.35);
 }
 
-/* animated multicolor border ring */
+/* multicolor border ring */
 .value::after{
     content:"";
     position:absolute;
-    inset:-2px;                 /* border thickness area */
+    inset:-2px;
     border-radius: 18px;
     background: conic-gradient(
         from 0deg,
@@ -206,32 +212,27 @@ video {
     filter: blur(0.4px);
 }
 
-/* inner black card sits above the ring */
+/* inner black card */
 .value::before{
     content:"";
     position:absolute;
-    inset: 4px;                 /* controls border thickness */
+    inset: 4px;
     border-radius: 13px;
     background: rgba(0,0,0,0.88);
     box-shadow: inset 0 0 18px rgba(0,255,255,0.22);
     z-index: 1;
 }
 
-/* optional subtle breathing glow */
-.value{
-    animation: edgeBreath 3.5s ease-in-out infinite;
-}
+/* breathing glow */
+.value{ animation: edgeBreath 3.5s ease-in-out infinite; }
 
-@keyframes edgeSpin{
-    to { transform: rotate(360deg); }
-}
-
+@keyframes edgeSpin{ to { transform: rotate(360deg); } }
 @keyframes edgeBreath{
     0%,100% { box-shadow: inset 0 0 18px rgba(0,255,255,0.18), 0 0 18px rgba(0,255,255,0.28); }
     50%     { box-shadow: inset 0 0 18px rgba(0,255,255,0.26), 0 0 26px rgba(0,255,255,0.38); }
 }
 
-/* CONTENT ABOVE INNER CARD */
+/* content above inner card */
 .num, .unit, .corner { position: relative; z-index: 2; }
 
 .num{
@@ -287,7 +288,6 @@ video {
 }
 #fullscreen-btn:hover { background: #00e5e5; }
 
-/* reduce motion */
 @media (prefers-reduced-motion: reduce) {
   .kinetic-outline, .product.kinetic::after { animation: none; opacity: 1; transform: none; }
   .value::after, .value { animation: none; }
@@ -367,9 +367,7 @@ updateCountdown();
 </html>
 """
 
-# inject
 html_code = html_code.replace("__VIDEO_DATA__", "data:video/mp4;base64," + video_base64)
 html_code = html_code.replace("__LAUNCH_DATE__", LAUNCH_DATE)
 
-# render
 st.components.v1.html(html_code, height=1000, scrolling=False)
