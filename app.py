@@ -25,7 +25,8 @@ html, body {
     padding: 0;
     width: 100%;
     height: 100%;
-    overflow: hidden;
+    overflow: hidden;                 /* stop page scroll */
+    overscroll-behavior: none;        /* stop bounce scroll on TV browsers */
     font-family: Orbitron, sans-serif;
 }
 
@@ -39,18 +40,18 @@ video {
     z-index: -1;
 }
 
-/* MAIN OVERLAY (TV-safe responsive sizing) */
+/* MAIN OVERLAY (TV-safe sizing) */
 .overlay {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 
-    /* prevents full-screen overlay on big TVs */
+    /* prevents taking whole TV */
     width: clamp(720px, 70vw, 1100px);
 
     /* responsive padding */
-    padding: clamp(28px, 3.5vw, 64px) clamp(30px, 4vw, 90px);
+    padding: clamp(26px, 3.2vw, 58px) clamp(28px, 3.8vw, 86px);
 
     background: rgba(0,0,0,0.18);
     border-radius: 28px;
@@ -60,16 +61,18 @@ video {
     text-align: center;
     backdrop-filter: blur(2px);
 
+    /* keep content inside */
     max-height: 82vh;
     box-sizing: border-box;
 }
 
+/* very large screens */
 @media (min-width: 1700px) {
   .overlay { width: clamp(760px, 58vw, 1100px); }
 }
 
 .title {
-    font-size: 46px;
+    font-size: clamp(30px, 3.2vw, 46px);
     color: cyan;
     letter-spacing: 3px;
     font-weight: 800;
@@ -90,7 +93,7 @@ video {
 .kinetic-outline{
     position: relative;
     display: inline-block;
-    font-size: clamp(26px, 4.2vw, 54px);
+    font-size: clamp(24px, 3.2vw, 54px);
     font-weight: 700;
     letter-spacing: 7px;
     text-transform: uppercase;
@@ -151,35 +154,27 @@ video {
 }
 
 .date {
-    font-size: 22px;
+    font-size: clamp(16px, 1.7vw, 22px);
     font-weight: 700;
-    margin: 8px 0 36px 0;
+    margin: 8px 0 28px 0;
     color: white;
     text-shadow: 0 0 8px rgba(0,255,255,0.5);
 }
 
-/* TIMER GRID */
+/* TIMER GRID — auto-fit so boxes NEVER go out */
 .timer {
     display: grid;
-    grid-template-columns: repeat(5, minmax(120px, 1fr));
-    gap: 34px;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: clamp(14px, 2.2vw, 34px);
     justify-content: center;
     align-items: center;
+    width: 100%;
 }
 
-@media (max-width: 900px){
-    .timer { grid-template-columns: repeat(3, minmax(110px, 1fr)); }
-}
-@media (max-width: 560px){
-    .timer { grid-template-columns: repeat(2, minmax(110px, 1fr)); gap: 22px; }
-}
-
-.box { display: flex; justify-content: center; }
-
-/* EDGE DISPLAY BORDER (MULTICOLOR KINETIC) */
+/* EDGE DISPLAY BORDER (MULTICOLOR) */
 .value{
-    width: 130px;
-    height: 88px;
+    width: clamp(110px, 10vw, 130px);
+    height: clamp(76px, 7.5vw, 88px);
     border-radius: 16px;
     position: relative;
     display: grid;
@@ -223,7 +218,6 @@ video {
     z-index: 1;
 }
 
-/* breathing glow */
 .value{ animation: edgeBreath 3.5s ease-in-out infinite; }
 
 @keyframes edgeSpin{ to { transform: rotate(360deg); } }
@@ -236,7 +230,7 @@ video {
 .num, .unit, .corner { position: relative; z-index: 2; }
 
 .num{
-    font-size: 42px;
+    font-size: clamp(28px, 2.8vw, 42px);
     font-weight: 800;
     letter-spacing: 2px;
     color: white;
@@ -270,24 +264,32 @@ video {
     opacity: 0.55;
 }
 
-/* FULLSCREEN BUTTON */
+/* FULLSCREEN BUTTON — bigger for TV remote */
 #fullscreen-btn {
     position: fixed;
-    bottom: 30px;
-    right: 30px;
-    padding: 12px 18px;
-    font-size: 14px;
-    font-weight: 700;
+    bottom: 26px;
+    right: 26px;
+    width: 56px;
+    height: 56px;
+    font-size: 22px;
+    font-weight: 800;
     color: black;
     background: cyan;
     border: none;
-    border-radius: 10px;
+    border-radius: 14px;
     cursor: pointer;
     z-index: 10;
     box-shadow: 0 0 18px rgba(0,255,255,0.75);
 }
 #fullscreen-btn:hover { background: #00e5e5; }
 
+/* show focus outline for TV navigation */
+#fullscreen-btn:focus {
+    outline: 3px solid rgba(255,255,255,0.8);
+    outline-offset: 4px;
+}
+
+/* reduce motion */
 @media (prefers-reduced-motion: reduce) {
   .kinetic-outline, .product.kinetic::after { animation: none; opacity: 1; transform: none; }
   .value::after, .value { animation: none; }
@@ -295,13 +297,13 @@ video {
 </style>
 </head>
 
-<body>
+<body tabindex="0">
 
 <video autoplay muted loop playsinline>
   <source src="__VIDEO_DATA__" type="video/mp4">
 </video>
 
-<div class="overlay">
+<div class="overlay" id="overlay">
   <div class="title">MIZZO ORION</div>
 
   <div class="product kinetic">
@@ -311,27 +313,55 @@ video {
   <div class="date">Launch Date: June 13, 2026</div>
 
   <div class="timer">
-    <div class="box"><div class="value"><div class="corner"></div><div class="num" id="months">00</div><div class="unit">MONTHS</div></div></div>
-    <div class="box"><div class="value"><div class="corner"></div><div class="num" id="days">00</div><div class="unit">DAYS</div></div></div>
-    <div class="box"><div class="value"><div class="corner"></div><div class="num" id="hours">00</div><div class="unit">HOURS</div></div></div>
-    <div class="box"><div class="value"><div class="corner"></div><div class="num" id="minutes">00</div><div class="unit">MINUTES</div></div></div>
-    <div class="box"><div class="value"><div class="corner"></div><div class="num" id="seconds">00</div><div class="unit">SECONDS</div></div></div>
+    <div class="value"><div class="corner"></div><div class="num" id="months">00</div><div class="unit">MONTHS</div></div>
+    <div class="value"><div class="corner"></div><div class="num" id="days">00</div><div class="unit">DAYS</div></div>
+    <div class="value"><div class="corner"></div><div class="num" id="hours">00</div><div class="unit">HOURS</div></div>
+    <div class="value"><div class="corner"></div><div class="num" id="minutes">00</div><div class="unit">MINUTES</div></div>
+    <div class="value"><div class="corner"></div><div class="num" id="seconds">00</div><div class="unit">SECONDS</div></div>
   </div>
 </div>
 
-<button id="fullscreen-btn">⛶</button>
+<button id="fullscreen-btn" aria-label="Fullscreen" title="Fullscreen">⛶</button>
 
 <script>
+/* IMPORTANT: prevent remote scrolling the page */
+window.addEventListener('wheel', (e) => e.preventDefault(), { passive: false });
+window.addEventListener('touchmove', (e) => e.preventDefault(), { passive: false });
+
 /* FULLSCREEN */
 const fsButton = document.getElementById("fullscreen-btn");
+const overlay = document.getElementById("overlay");
+
 function enterFullscreen() {
   const el = document.documentElement;
   if (el.requestFullscreen) el.requestFullscreen();
   else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
 }
-function isFullscreen() { return document.fullscreenElement || document.webkitFullscreenElement; }
+function isFullscreen() {
+  return document.fullscreenElement || document.webkitFullscreenElement;
+}
+
 fsButton.addEventListener("click", enterFullscreen);
-function onFullscreenChange() { fsButton.style.display = isFullscreen() ? "none" : "block"; }
+
+/* TV remote support: OK/Enter triggers fullscreen (focus body) */
+window.addEventListener("load", () => {
+  document.body.focus();
+  // also focus the button so remote can click easily
+  fsButton.focus();
+});
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" || e.key === " " || e.key === "OK") {
+    enterFullscreen();
+  }
+});
+
+/* also allow clicking overlay area to fullscreen (easy on TV) */
+overlay.addEventListener("click", enterFullscreen);
+
+function onFullscreenChange() {
+  fsButton.style.display = isFullscreen() ? "none" : "block";
+}
 document.addEventListener("fullscreenchange", onFullscreenChange);
 document.addEventListener("webkitfullscreenchange", onFullscreenChange);
 
@@ -370,4 +400,5 @@ updateCountdown();
 html_code = html_code.replace("__VIDEO_DATA__", "data:video/mp4;base64," + video_base64)
 html_code = html_code.replace("__LAUNCH_DATE__", LAUNCH_DATE)
 
-st.components.v1.html(html_code, height=1000, scrolling=False)
+# IMPORTANT: use a tall iframe on TVs to avoid remote scrolling
+st.components.v1.html(html_code, height=2200, scrolling=False)
