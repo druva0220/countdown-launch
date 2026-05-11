@@ -4,12 +4,12 @@ import os
 
 st.set_page_config(layout="wide")
 
-# â”€â”€ CONFIG â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# ── CONFIG ────────────────────────────────────────────────────────────────────
 IMG_PATH    = "launch_place.jpg"
 FINAL_PATH  = "final.mp4"
 LAUNCH_DATE = "2026-06-13T00:00:00"
 
-# â”€â”€ LOAD ASSETS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# ── LOAD ASSETS ───────────────────────────────────────────────────────────────
 with open(IMG_PATH, "rb") as f:
     img_b64 = base64.b64encode(f.read()).decode()
 with open(FINAL_PATH, "rb") as f:
@@ -29,7 +29,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:Orb
 .layer{position:fixed;inset:0;transition:opacity 0.9s ease;}
 .layer.hidden{opacity:0;pointer-events:none;}
 
-/* â”€â”€ PHASE 0 Â· TIMER (MISSION CONTROL) â”€â”€ */
+/* ── PHASE 0 · TIMER (MISSION CONTROL) ── */
 #l-timer{
   background:#00030e;z-index:10;
   display:flex;flex-direction:column;
@@ -190,7 +190,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:Orb
 .mc-dsep{color:rgba(0,205,255,0.22);}
 .mc-date em{font-style:normal;color:rgba(0,215,255,0.88);}
 
-/* â”€â”€ ROBOTIC ARMS â€” rise from bottom, cover screen â”€â”€ */
+/* ── ROBOTIC ARMS — rise from bottom, cover screen ── */
 .mc-arm{
   position:absolute;bottom:0;
   width:clamp(200px,22vw,360px);
@@ -222,7 +222,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:Orb
 @keyframes aS6{0%,100%{transform:rotate(-36deg)} 14%{transform:rotate(20deg)} 39%{transform:rotate(42deg)} 64%{transform:rotate(-16deg)} 84%{transform:rotate(38deg)}}
 @keyframes aS7{0%,100%{transform:rotate(-48deg)} 11%{transform:rotate(56deg)} 34%{transform:rotate(-28deg)} 57%{transform:rotate(52deg)} 79%{transform:rotate(-38deg)} 94%{transform:rotate(50deg)}}
 
-/* â”€â”€ SIDE ARMS â€” wall-mounted, extend inward â”€â”€ */
+/* ── SIDE ARMS — wall-mounted, extend inward ── */
 .mc-arm-side{
   position:absolute;
   width:clamp(180px,22vw,290px);
@@ -245,13 +245,13 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:Orb
 @keyframes ssA3{0%,100%{transform:rotate(-32deg)} 26%{transform:rotate(36deg)} 54%{transform:rotate(-16deg)} 80%{transform:rotate(28deg)}}
 @keyframes ssA4{0%,100%{transform:rotate(-46deg)} 20%{transform:rotate(52deg)} 44%{transform:rotate(-26deg)} 70%{transform:rotate(46deg)} 90%{transform:rotate(-36deg)}}
 
-/* â”€â”€ FINAL.MP4 background inside timer â”€â”€ */
+/* ── FINAL.MP4 background inside timer ── */
 #final-bg{
   position:absolute;inset:0;width:100%;height:100%;
   object-fit:cover;z-index:0;opacity:0.55;pointer-events:none;
 }
 
-/* â”€â”€ DAYS PHASE â”€â”€ */
+/* ── DAYS PHASE ── */
 #l-days{background:#00020c;z-index:10;overflow:hidden;}
 #launch-img{
   position:absolute;inset:0;width:100%;height:100%;
@@ -361,17 +361,17 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:Orb
   <div class="mc-body">
 
     <div class="mc-header">
-      <span class="mc-bracket">âŸ¦</span>
+      <span class="mc-bracket">⟦</span>
       <div class="mc-title">
         <div class="mc-product">MIZZO ORION</div>
         <div class="mc-subtitle">PRODUCT LAUNCH COUNTDOWN</div>
       </div>
-      <span class="mc-bracket">âŸ§</span>
+      <span class="mc-bracket">⟧</span>
     </div>
 
     <div class="mc-rule">
       <div class="mc-rule-line"></div>
-      <span class="mc-rule-icon">â—ˆ</span>
+      <span class="mc-rule-icon">◈</span>
       <div class="mc-rule-line"></div>
     </div>
 
@@ -409,30 +409,30 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:Orb
 
     <div class="mc-rule">
       <div class="mc-rule-line"></div>
-      <span class="mc-rule-icon">â—ˆ</span>
+      <span class="mc-rule-icon">◈</span>
       <div class="mc-rule-line"></div>
     </div>
 
     <div class="mc-date">
-      <span>Tâ€”MINUS</span>
-      <span class="mc-dsep">â”‚</span>
+      <span>T—MINUS</span>
+      <span class="mc-dsep">│</span>
       <span>LAUNCH: <em>JUNE 13, 2026</em></span>
-      <span class="mc-dsep">â”‚</span>
-      <span>MISSION MOâ€”001</span>
+      <span class="mc-dsep">│</span>
+      <span>MISSION MO—001</span>
     </div>
 
   </div>
 
   <div class="mc-botbar">
-    <span>â—ˆ</span>
+    <span>◈</span>
     <span>ALL SYSTEMS GO</span>
-    <span class="mc-bsep">â”‚</span>
+    <span class="mc-bsep">│</span>
     <span>COUNTDOWN NOMINAL</span>
-    <span class="mc-bsep">â”‚</span>
-    <span>â—ˆ</span>
+    <span class="mc-bsep">│</span>
+    <span>◈</span>
   </div>
 
-  <!-- LEFT ARM â€” needle driver, base at bottom -->
+  <!-- LEFT ARM — needle driver, base at bottom -->
   <svg class="mc-arm mc-arm-l" viewBox="0 0 240 880" overflow="visible" xmlns="http://www.w3.org/2000/svg">
     <!-- Floor mount bracket -->
     <rect x="74" y="838" width="92" height="40" rx="6" fill="#000c20" stroke="rgba(0,195,255,0.75)" stroke-width="2.2"/>
@@ -529,7 +529,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:Orb
                             <line x1="-8" y1="-21" x2="8" y2="-21" stroke="rgba(0,195,255,0.18)" stroke-width="0.9"/>
                             <rect x="-20" y="-62" width="40" height="8" rx="2" fill="#000d22" stroke="rgba(0,195,255,0.46)" stroke-width="1.2"/>
                             <g transform="translate(0,-57)">
-                              <!-- S7 â€” needle driver -->
+                              <!-- S7 — needle driver -->
                               <g class="arm-seg arm-s7">
                                 <rect x="-18" y="-36" width="36" height="36" rx="4" fill="#000c20" stroke="rgba(0,195,255,0.60)" stroke-width="1.6"/>
                                 <rect x="-18" y="-36" width="6"  height="36" rx="3" fill="rgba(0,185,255,0.12)"/>
@@ -595,7 +595,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:Orb
     </g>
   </svg>
 
-  <!-- RIGHT ARM â€” tissue forceps, base at bottom (mirrored) -->
+  <!-- RIGHT ARM — tissue forceps, base at bottom (mirrored) -->
   <svg class="mc-arm mc-arm-r" viewBox="0 0 240 880" overflow="visible" xmlns="http://www.w3.org/2000/svg">
     <rect x="74" y="838" width="92" height="40" rx="6" fill="#000c20" stroke="rgba(0,195,255,0.72)" stroke-width="2"/>
     <rect x="81" y="845" width="78" height="26" rx="4" fill="rgba(0,4,16,0.90)" stroke="rgba(0,195,255,0.28)" stroke-width="1"/>
@@ -683,7 +683,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:Orb
                             <line x1="-8" y1="-21" x2="8" y2="-21" stroke="rgba(0,195,255,0.18)" stroke-width="0.9"/>
                             <rect x="-20" y="-62" width="40" height="8" rx="2" fill="#000d22" stroke="rgba(0,195,255,0.46)" stroke-width="1.2"/>
                             <g transform="translate(0,-57)">
-                              <!-- S7 â€” tissue forceps -->
+                              <!-- S7 — tissue forceps -->
                               <g class="arm-seg arm-s7">
                                 <rect x="-18" y="-36" width="36" height="36" rx="4" fill="#000c20" stroke="rgba(0,195,255,0.60)" stroke-width="1.6"/>
                                 <rect x="-18" y="-36" width="6"  height="36" rx="3" fill="rgba(0,185,255,0.12)"/>
@@ -757,7 +757,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:Orb
     </g>
   </svg>
 
-  <!-- LEFT SIDE ARM â€” wall-mounted at ~26% height -->
+  <!-- LEFT SIDE ARM — wall-mounted at ~26% height -->
   <svg class="mc-arm-side mc-arm-side-l" viewBox="0 0 290 130" overflow="visible" xmlns="http://www.w3.org/2000/svg">
     <rect x="0" y="49" width="22" height="32" rx="4" fill="#000c20" stroke="rgba(0,195,255,0.75)" stroke-width="2"/>
     <rect x="3" y="53" width="16" height="24" rx="3" fill="rgba(0,4,16,0.90)" stroke="rgba(0,195,255,0.30)" stroke-width="1"/>
@@ -843,7 +843,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:Orb
     </g>
   </svg>
 
-  <!-- RIGHT SIDE ARM â€” mirrored via scaleX(-1), at ~60% height -->
+  <!-- RIGHT SIDE ARM — mirrored via scaleX(-1), at ~60% height -->
   <svg class="mc-arm-side mc-arm-side-r" viewBox="0 0 290 130" overflow="visible" xmlns="http://www.w3.org/2000/svg">
     <rect x="0" y="49" width="22" height="32" rx="4" fill="#000c20" stroke="rgba(0,195,255,0.75)" stroke-width="2"/>
     <rect x="3" y="53" width="16" height="24" rx="3" fill="rgba(0,4,16,0.90)" stroke="rgba(0,195,255,0.30)" stroke-width="1"/>
@@ -938,27 +938,27 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:Orb
   <div class="days-gradient"></div>
   <div id="days-overlay">
     <div class="days-topbar">
-      <span>â—ˆ MISSION MO-001</span>
+      <span>◈ MISSION MO-001</span>
       <span>LAUNCH SEQUENCE: ACTIVE</span>
-      <span>RANGE: NOMINAL â—ˆ</span>
+      <span>RANGE: NOMINAL ◈</span>
     </div>
-    <div class="days-mission-label">MIZZO ORION â€” PRODUCT LAUNCH</div>
+    <div class="days-mission-label">MIZZO ORION — PRODUCT LAUNCH</div>
     <div class="days-bracket-row">
-      <span class="days-bracket">âŸ¦</span>
+      <span class="days-bracket">⟦</span>
       <div id="days-num-panel">
         <div class="days-pbar"></div>
         <div id="ddays">00</div>
         <div class="days-unit-label">DAYS TO LAUNCH</div>
         <div class="days-date-line">TARGET: <em>JUNE 13, 2026</em></div>
       </div>
-      <span class="days-bracket">âŸ§</span>
+      <span class="days-bracket">⟧</span>
     </div>
     <div class="days-botbar">
-      <span>â—ˆ</span>
+      <span>◈</span>
       <span>COUNTDOWN IN PROGRESS</span>
-      <span>â”‚</span>
+      <span>│</span>
       <span>ALL SYSTEMS GO</span>
-      <span>â—ˆ</span>
+      <span>◈</span>
     </div>
   </div>
 </div>
@@ -972,7 +972,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:Orb
 const LAUNCH = new Date("__LAUNCH_DATE__");
 
 
-// â”€â”€ COUNTDOWN â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── COUNTDOWN ────────────────────────────────────────────────────────────────
 function getTimeLeft(){
   const d=LAUNCH-new Date(); if(d<=0) return null;
   let s=Math.floor(d/1000),m=Math.floor(s/60),h=Math.floor(m/60),dy=Math.floor(h/24);
@@ -992,7 +992,7 @@ function updateTimerDisplay(){
   });
 }
 
-// â”€â”€ PHASE MACHINE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── PHASE MACHINE ─────────────────────────────────────────────────────────────
 const lTimer  = document.getElementById('l-timer');
 const lDays   = document.getElementById('l-days');
 const finalBg = document.getElementById('final-bg');
@@ -1023,7 +1023,7 @@ function go(p){
   }
 }
 
-// â”€â”€ MAIN LOOP â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── MAIN LOOP ─────────────────────────────────────────────────────────────────
 function loop(){
   requestAnimationFrame(loop);
   if(phase === PH.TIMER) updateTimerDisplay();
@@ -1034,7 +1034,7 @@ requestAnimationFrame(loop);
 
 go(PH.DAYS);
 
-// â”€â”€ FULLSCREEN â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── FULLSCREEN ────────────────────────────────────────────────────────────────
 const fsBtn=document.getElementById('fs-btn');
 fsBtn.addEventListener('click',()=>{
   const el=document.documentElement;
