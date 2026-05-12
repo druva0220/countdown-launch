@@ -36,24 +36,22 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:Orb
   align-items:center;justify-content:center;
   overflow:hidden;
 }
-/* Scrolling grid */
+/* Edge vignette — frames the video without covering it */
 #l-timer::before{
-  content:"";position:absolute;inset:0;pointer-events:none;
-  background-image:
-    linear-gradient(rgba(0,205,255,0.042) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(0,205,255,0.042) 1px,transparent 1px);
-  background-size:54px 54px;
-  animation:gridScroll 20s linear infinite;
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:1;
+  background:
+    linear-gradient(180deg,rgba(0,2,14,0.72) 0%,transparent 18%,transparent 82%,rgba(0,2,14,0.72) 100%),
+    linear-gradient(90deg,rgba(0,2,14,0.55) 0%,transparent 14%,transparent 86%,rgba(0,2,14,0.55) 100%);
 }
-/* Horizontal sweep scanline */
+/* Subtle CRT scanline texture — very faint, keeps broadcast-monitor feel */
 #l-timer::after{
-  content:"";position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(180deg,transparent 0%,rgba(0,215,255,0.026) 50%,transparent 100%);
-  background-size:100% 280px;
-  animation:scanSweep 8s linear infinite;
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:1;
+  background:repeating-linear-gradient(
+    0deg,
+    transparent,transparent 3px,
+    rgba(0,0,0,0.045) 3px,rgba(0,0,0,0.045) 4px
+  );
 }
-@keyframes gridScroll{to{background-position:54px 54px;}}
-@keyframes scanSweep{from{background-position:0 -280px;}to{background-position:0 110vh;}}
 
 /* Top status bar */
 .mc-topbar{
@@ -450,7 +448,8 @@ const finalBg = document.getElementById('final-bg');
 const PH = {DAYS:0, TIMER:1};
 let phase = PH.DAYS;
 let phaseStart = 0;
-const PHASE_DURATION = 30000;
+const DAYS_DURATION  = 10000;   // ← first screen duration (ms)
+const TIMER_DURATION = 12000;   // ← second screen duration (ms)
 
 function updateDaysDisplay(){
   const d = LAUNCH - new Date();
@@ -477,7 +476,8 @@ function go(p){
 function loop(){
   requestAnimationFrame(loop);
   if(phase === PH.TIMER) updateTimerDisplay();
-  if(performance.now() - phaseStart >= PHASE_DURATION)
+  const dur = phase === PH.TIMER ? TIMER_DURATION : DAYS_DURATION;
+  if(performance.now() - phaseStart >= dur)
     go(phase === PH.TIMER ? PH.DAYS : PH.TIMER);
 }
 requestAnimationFrame(loop);
