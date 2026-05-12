@@ -199,7 +199,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:Orb
 }
 .mc-arm-l{left:0; transform-origin:50% 100%;transform:rotate(18deg);}
 .mc-arm-r{right:0;transform-origin:50% 100%;transform:scaleX(-1) rotate(18deg);}
-.arm-seg{transform-box:fill-box;transform-origin:50% 100%;}
+.arm-seg{transform-origin:0 0;}
 .arm-s1{animation:aS1  9.4s ease-in-out infinite;}
 .arm-s2{animation:aS2  7.6s ease-in-out infinite;}
 .arm-s3{animation:aS3  5.9s ease-in-out infinite;}
@@ -231,7 +231,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:Orb
 }
 .mc-arm-side-l{ left:0; top:26%; }
 .mc-arm-side-r{ right:0; top:60%; transform:scaleX(-1); }
-.side-seg{ transform-box:fill-box; transform-origin:0% 50%; }
+.side-seg{ transform-origin:0 0; }
 .ss1{animation:ssA1  8.6s ease-in-out infinite;}
 .ss2{animation:ssA2  6.3s ease-in-out infinite;}
 .ss3{animation:ssA3  4.5s ease-in-out infinite;}
@@ -1000,7 +1000,7 @@ const finalBg = document.getElementById('final-bg');
 const PH = {DAYS:0, TIMER:1};
 let phase = PH.DAYS;
 let phaseStart = 0;
-const PHASE_DURATION = 15000;
+const PHASE_DURATION = 30000;
 
 function updateDaysDisplay(){
   const d = LAUNCH - new Date();
