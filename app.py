@@ -1000,7 +1000,8 @@ const finalBg = document.getElementById('final-bg');
 const PH = {DAYS:0, TIMER:1};
 let phase = PH.DAYS;
 let phaseStart = 0;
-const PHASE_DURATION = 30000;
+const DAYS_DURATION = 10000;
+const TIMER_DURATION = 30000;
 
 function updateDaysDisplay(){
   const d = LAUNCH - new Date();
@@ -1027,8 +1028,14 @@ function go(p){
 function loop(){
   requestAnimationFrame(loop);
   if(phase === PH.TIMER) updateTimerDisplay();
-  if(performance.now() - phaseStart >= PHASE_DURATION)
-    go(phase === PH.TIMER ? PH.DAYS : PH.TIMER);
+  const elapsed = performance.now() - phaseStart;
+    
+    if (
+       (phase === PH.DAYS  && elapsed >= DAYS_DURATION) ||
+       (phase === PH.TIMER && elapsed >= TIMER_DURATION)
+    ){
+       go(phase === PH.TIMER ? PH.DAYS : PH.TIMER);
+    }
 }
 requestAnimationFrame(loop);
 
