@@ -1000,7 +1000,7 @@ const finalBg = document.getElementById('final-bg');
 const PH = {DAYS:0, TIMER:1};
 let phase = PH.DAYS;
 let phaseStart = 0;
-const DAYS_DURATION = 10000;
+const DAYS_DURATION = 5000;
 const TIMER_DURATION = 30000;
 
 function updateDaysDisplay(){
